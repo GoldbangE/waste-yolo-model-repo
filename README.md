@@ -2,6 +2,10 @@
 
 Ultralytics YOLOv8n object detection model for waste detection.
 
+Data set  
+"https://universe.roboflow.com/simpledimploma/yolo-waste-detection-9ebbc/dataset/2"
+
+
 ## Files
 
 - `models/best.pt`: trained YOLOv8n weights
