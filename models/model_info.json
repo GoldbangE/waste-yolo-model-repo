@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "model": {
+    "id": "waste_yolov8n_full_aug150",
+    "task": "object_detection",
+    "architecture": "YOLOv8n",
+    "framework": "Ultralytics YOLO",
+    "weights_file": "best.pt",
+    "weights_path": "models/best.pt",
+    "original_weights_path": "C:\\Users\\PC\\Desktop\\YOLOTUNE\\runs\\detect\\waste_yolov8n_full_aug150\\weights\\best.pt"
+  },
+  "input": {
+    "image_size": 416,
+    "image_size_format": "square",
+    "preferred_api": "ultralytics.YOLO",
+    "preprocessing_note": "When using ultralytics.YOLO, image loading, resizing, normalization, and NMS are handled by the library."
+  },
+  "output": {
+    "type": "bounding_boxes",
+    "box_format": "xyxy",
+    "box_values": "pixel_coordinates",
+    "fields": [
+      "class_id",
+      "class_name",
+      "confidence",
+      "box_xyxy"
+    ]
+  },
+  "thresholds": {
+    "default_confidence": 0.25,
+    "default_iou": 0.7,
+    "max_detections": 300
+  },
+  "classes": {
+    "count": 10,
+    "names": [
+      "Aluminum can",
+      "Cardboard",
+      "Container for household chemicals",
+      "Glass bottle",
+      "Organic",
+      "Paper",
+      "Plastic bag",
+      "Plastic bottle",
+      "Plastic cup",
+      "Tin"
+    ],
+    "id_to_name": {
+      "0": "Aluminum can",
+      "1": "Cardboard",
+      "2": "Container for household chemicals",
+      "3": "Glass bottle",
+      "4": "Organic",
+      "5": "Paper",
+      "6": "Plastic bag",
+      "7": "Plastic bottle",
+      "8": "Plastic cup",
+      "9": "Tin"
+    }
+  },
+  "example_usage": {
+    "python": [
+      "import json",
+      "from ultralytics import YOLO",
+      "",
+      "with open('model_info.json', 'r', encoding='utf-8') as f:",
+      "    info = json.load(f)",
+      "",
+      "model = YOLO(info['model']['weights_path'])",
+      "results = model.predict(source='image.jpg', imgsz=info['input']['image_size'], conf=info['thresholds']['default_confidence'])",
+      "",
+      "class_names = info['classes']['names']",
+      "for r in results:",
+      "    for box in r.boxes:",
+      "        class_id = int(box.cls[0])",
+      "        class_name = class_names[class_id]",
+      "        confidence = float(box.conf[0])",
+      "        xyxy = box.xyxy[0].tolist()",
+      "        print(class_id, class_name, confidence, xyxy)"
+    ]
+  }
+}
